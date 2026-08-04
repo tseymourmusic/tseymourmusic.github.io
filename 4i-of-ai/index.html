@@ -121,14 +121,16 @@
         <h1>4<span class="lowercase-letter">i</span>AI</h1>
         <p class="tagline">Maintaining Artistic Integrity Through Human-AI Collaboration</p>
 
-        <!-- Simple, responsive PDF iframe -->
-        <iframe 
-            src="/pdfs/4iai_tim-seymour.pdf#view=FitH" 
-            style="width: 100%; height: 75vh; border: none;">
-            <p>This browser does not support PDFs. 
-               <a href="/pdfs/4iai_tim-seymour.pdf">Download PDF</a>.
-            </p>
-        </iframe>
+        <!-- Wrap in a div with touch scrolling -->
+        <div style="width: 100%; height: 75vh; -webkit-overflow-scrolling: touch; overflow-y: auto;">
+            <iframe 
+                src="/pdfs/4iai_tim-seymour.pdf#view=FitH" 
+                style="width: 100%; height: 100%; border: none;">
+                <p>This browser does not support PDFs. 
+                   <a href="/pdfs/4iai_tim-seymour.pdf">Download PDF</a>.
+                </p>
+            </iframe>
+        </div>
     </div>
 
     <div id="footer-placeholder"></div>
