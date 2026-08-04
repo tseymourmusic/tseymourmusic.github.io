@@ -151,6 +151,9 @@
     <script src="/player.js"></script>
     
     <script>
+        fetch('/menu.html').then(res => res.text()).then(data => { document.getElementById('nav-placeholder').innerHTML = data; });
+        fetch('/footer.html').then(res => res.text()).then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+        
         // Set worker location
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
