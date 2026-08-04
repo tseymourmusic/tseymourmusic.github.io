@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4iAI | Tim Seymour Composer</title>
-    
+    <!-- Mozilla PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -111,33 +112,76 @@
             h1 { font-size: 1.8rem; letter-spacing: 6px; padding-left: 6px; }
             #player-placeholder .player-container { gap: 10px; }
         }
+        
+  /* Clean, single-scroll mobile-first PDF container */
+        #pdf-viewer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            background-color: #f5f5f5;
+            padding: 15px 0;
+            border-radius: 8px;
+        }
+
+        /* Every PDF page automatically fits device width */
+        canvas {
+            max-width: 95%;
+            height: auto !important;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: white;
+            }
     </style>
 </head>
 <body>
 
     <div id="nav-placeholder"></div>
 
-    <div class="container">
+<div class="container">
         <h1>4<span class="lowercase-letter">i</span>AI</h1>
         <p class="tagline">Maintaining Artistic Integrity Through Human-AI Collaboration</p>
 
-        <!-- Wrap in a div with touch scrolling -->
-        <div style="width: 100%; height: 75vh; -webkit-overflow-scrolling: touch; overflow-y: auto;">
-            <iframe 
-                src="/pdfs/4iai_tim-seymour.pdf#view=FitH" 
-                style="width: 100%; height: 100%; border: none;">
-                <p>This browser does not support PDFs. 
-                   <a href="/pdfs/4iai_tim-seymour.pdf">Download PDF</a>.
-                </p>
-            </iframe>
-        </div>
+        <!-- PDF Container -->
+        <div id="pdf-viewer"></div>
     </div>
 
     <div id="footer-placeholder"></div>
 
     <script src="/player.js"></script>
     
-    <script>
+    <script><script>
+        // Set worker location
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const url = '/pdfs/4iai_tim-seymour.pdf';
+        const container = document.getElementById('pdf-viewer');
+
+        // Load the PDF
+        pdfjsLib.getDocument(url).promise.then(pdf => {
+            // Render every page sequentially
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                pdf.getPage(pageNum).then(page => {
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    
+                    // Render at high resolution for sharp text
+                    const viewport = page.getViewport({ scale: 2.0 });
+
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    container.appendChild(canvas);
+
+                    page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    });
+                });
+            }
+        }).catch(err => {
+            container.innerHTML = `<p>Unable to load PDF. <a href="${url}">Download PDF</a></p>`;
+        });
     </script>
 </body>
 </html>
