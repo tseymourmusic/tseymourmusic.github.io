@@ -64,9 +64,9 @@ When prompted, AI excels at assessing what's ***P***<i>ossible</i> and producing
 
 **P**lausible: Anecdotal, insincere, false
 
-The moral compass of the modern creator is therefore defined by a simple choice: whether to take what's ***P***<i>ossible</i>, accept the surface response of the ***P***<i>assable</i> and the unverified ***P***<i>lausible</i>, or strive to produce the ***P***<i>rofound</i>.
-
 **P**rofound: Deep, memorable, enduring
+
+The moral compass of the modern creator is therefore defined by a simple choice: whether to take what's ***P***<i>ossible</i>, accept the surface response of the ***P***<i>assable</i> and the unverified ***P***<i>lausible</i>, or strive to produce the ***P***<i>rofound</i>.
 
 # IV: The 4iAI™ Framework
 
